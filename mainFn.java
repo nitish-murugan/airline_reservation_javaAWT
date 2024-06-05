@@ -346,30 +346,119 @@ public class mainFn extends Frame implements ActionListener {
                         dialog3.setVisible(true);
         			}
         			else {
-        				emails[nos] = emailsignup;
-            			name[nos] = namesignup;
-            			phoneNumber[nos] = Long.parseLong(phonenumbersignup);
-            			date[nos] = datesignup;
-            			city[nos] = citysignup;
-            			
-            			nos++;
-            			
-            			Dialog dialog4 = new Dialog(f,"Error",true);
-                        dialog4.setSize(250,80);
-                        dialog4.setLayout(new FlowLayout());
-                        Label notFound = new Label("Registration successfully!! Please login");
-                        dialog4.add(notFound);
-                        
-                        dialog4.addWindowListener(new WindowAdapter() {
-                    		public void windowClosing(WindowEvent we) {
-                    			dialog4.setVisible(false);
-                    		}
-                    	});
-                        
-                        dialog4.setVisible(true);
-            			
-            			newFrame.setVisible(false);
-            			
+        				int flag = 1;
+        				for(String mail : emails) {
+        					if(mail.equalsIgnoreCase(emailsignup)) {
+        						flag = 0;
+        						break;
+        					}
+        				}
+        				if(flag == 0) {
+        					Dialog dialog3 = new Dialog(f,"Error",true);
+                            dialog3.setSize(280,80);
+                            dialog3.setLayout(new FlowLayout());
+                            Label notFound = new Label("User already exists. Please login");
+                            dialog3.add(notFound);
+                            
+                            dialog3.addWindowListener(new WindowAdapter() {
+                        		public void windowClosing(WindowEvent we) {
+                        			dialog3.setVisible(false);
+                        		}
+                        	});
+                            
+                            dialog3.setVisible(true);
+        				}
+        				else {
+        					int flag2 = 0;
+            				emails[nos] = emailsignup;
+                			name[nos] = namesignup;
+                			phoneNumber[nos] = Long.parseLong(phonenumbersignup);
+                			date[nos] = datesignup;
+                			city[nos] = citysignup;
+                			
+                			for(int i=0;i<emailsignup.length();i++) {
+                            	char ch = emailsignup.charAt(i);
+                            	if(ch == '@') {
+                            		flag2++;
+                            	}
+                            }
+                            if(emailsignup.contains("gmail") || emailsignup.contains("outlook") || emailsignup.contains("yahoo") || emailsignup.contains("zoho")) {
+                            	flag2++;
+                            }
+                            if(flag2 != 2) {
+                            	Dialog dialog3 = new Dialog(f,"Error",true);
+                                dialog3.setSize(220,80);
+                                dialog3.setLayout(new FlowLayout());
+                                Label notFound = new Label("Please enter a valid email-address");
+                                dialog3.add(notFound);
+                                
+                                dialog3.addWindowListener(new WindowAdapter() {
+                            		public void windowClosing(WindowEvent we) {
+                            			dialog3.setVisible(false);
+                            		}
+                            	});
+                                
+                                dialog3.setVisible(true);
+                            }
+                			
+                            else {
+                            	int flag3 = 0,flag4 = 0;
+                            	for(int i=0;i<datesignup.length();i++) {
+                            		char ch = datesignup.charAt(i);
+                            		if(ch=='/') {
+                            			flag3++;
+                            		}
+                            		else {
+                            			try {
+                            				int checking = Integer.parseInt(String.valueOf(datesignup.charAt(i)));
+                            				flag4++;
+                            			}
+                            			catch(Exception e) {
+                            				
+                            			}
+                            		}
+                            	}
+                            	if(flag3==2 && flag4==8) {
+                            		nos++;
+                        			
+                        			
+                        			Dialog dialog4 = new Dialog(f,"Error",true);
+                                    dialog4.setSize(250,80);
+                                    dialog4.setLayout(new FlowLayout());
+                                    Label notFound = new Label("Registration successfully!! Please login");
+                                    dialog4.add(notFound);
+                                    
+                                    dialog4.addWindowListener(new WindowAdapter() {
+                                		public void windowClosing(WindowEvent we) {
+                                			dialog4.setVisible(false);
+                                		}
+                                	});
+                                    
+                                    dialog4.setVisible(true);
+                        			
+                        			newFrame.setVisible(false);
+                        	
+                            	}
+                            	else {
+                            		Dialog dialog3 = new Dialog(f,"Error",true);
+                                    dialog3.setSize(300,80);
+                                    dialog3.setLayout(new FlowLayout());
+                                    Label notFound = new Label("Please enter a valid Date of Birth (DD-MM-YYYY)");
+                                    dialog3.add(notFound);
+                                    
+                                    dialog3.addWindowListener(new WindowAdapter() {
+                                		public void windowClosing(WindowEvent we) {
+                                			dialog3.setVisible(false);
+                                		}
+                                	});
+                                    
+                                    dialog3.setVisible(true);
+                            	}
+                            	
+                            }
+        				}
+        				
+        					
             			
         			}
         			
@@ -383,6 +472,7 @@ public class mainFn extends Frame implements ActionListener {
         			nameSignup.setText("");
         			phonenumberSignup.setText("");
         			dateSignup.setText("");
+        			citySignup.setText("");
         		}
         	});
         	clear.setPreferredSize(new Dimension(60,30));
@@ -413,9 +503,8 @@ public class mainFn extends Frame implements ActionListener {
     
 
     public static void main(String[] args) {
-        /*mainFn obj = new mainFn();
-        obj.setVisible(true);*/
-    	displayAirlineClass obj = new displayAirlineClass("nitish");
+        mainFn obj = new mainFn();
+        obj.setVisible(true);
     }
 }
 
