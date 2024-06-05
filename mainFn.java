@@ -413,9 +413,8 @@ public class mainFn extends Frame implements ActionListener {
     
 
     public static void main(String[] args) {
-        /*mainFn obj = new mainFn();
-        obj.setVisible(true);*/
-    	displayAirlineClass obj = new displayAirlineClass("nitish");
+        mainFn obj = new mainFn();
+        obj.setVisible(true);
     }
 }
 
