@@ -3,6 +3,7 @@ package airline_reservation_awt;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
+import java.util.Scanner;
 
 public class mainFn extends Frame implements ActionListener {
 	TextField phone_dob, email;
@@ -348,6 +349,9 @@ public class mainFn extends Frame implements ActionListener {
         			else {
         				int flag = 1;
         				for(String mail : emails) {
+        					if(mail == null) {
+        						break;
+        					}
         					if(mail.equalsIgnoreCase(emailsignup)) {
         						flag = 0;
         						break;
